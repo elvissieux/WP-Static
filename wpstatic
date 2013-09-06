@@ -67,10 +67,14 @@ epsecs=( $(date +'%s') )
 path=( $(pwd) )
 
 # Get information from the wp-config.php file in order to make a backup copy
-sqluser=( $(grep "DB_USER" wp-config.php | sed -r -e "s/^[^']+'.*', '([^']+)'.*/\1/") )
-sqlpass=( $(grep "DB_PASSWORD" wp-config.php | sed -r -e "s/^[^']+'.*', '([^']+)'.*/\1/") )
-db_name=`grep "DB_NAME" wp-config.php | sed -r -e "s/^[^']+'.*', '([^']+)'.*/\1/"`
-db_host=`grep "DB_HOST" wp-config.php | sed -r -e "s/^[^']+'.*', '([^']+)'.*/\1/"`
+#sqluser=( $(grep "DB_USER" wp-config.php | sed -r -e "s/^[^']+'.*', '([^']+)'.*/\1/") )
+#sqlpass=( $(grep "DB_PASSWORD" wp-config.php | sed -r -e "s/^[^']+'.*', '([^']+)'.*/\1/") )
+#db_name=`grep "DB_NAME" wp-config.php | sed -r -e "s/^[^']+'.*', '([^']+)'.*/\1/"`
+#db_host=`grep "DB_HOST" wp-config.php | sed -r -e "s/^[^']+'.*', '([^']+)'.*/\1/"`
+sqluser=( $(grep "DB_USER" wp-config.php | cut -d";" -f1 | cut -d"=" -f2 | sed -e "s|'||g" -e 's|"||g' -e "s|;||g" -e "s| ||g" -e "s|)||g" -e "s|define(DB_USER,||g") )
+sqlpass=( $(grep "DB_PASSWORD" wp-config.php | cut -d";" -f1 | cut -d"=" -f2 | sed -e "s|'||g" -e 's|"||g' -e "s|;||g" -e "s| ||g" -e "s|)||g" -e "s|define(DB_PASSWORD,||g") )
+db_name=( $(grep "DB_NAME" wp-config.php | cut -d";" -f1 | cut -d"=" -f2 | sed -e "s|'||g" -e 's|"||g' -e "s|;||g" -e "s| ||g" -e "s|)||g" -e "s|define(DB_NAME,||g") )
+db_host=( $(grep "DB_HOST" wp-config.php | cut -d";" -f1 | cut -d"=" -f2 | sed -e "s|'||g" -e 's|"||g' -e "s|;||g" -e "s| ||g" -e "s|)||g" -e "s|define(DB_HOST,||g") )
 tb_prefix=( $(grep "table_prefix" wp-config.php | cut -d";" -f1 | cut -d"=" -f2 | sed -e "s|'||g" -e 's|"||g' -e "s|;||g" -e "s| ||g") )
 
 
