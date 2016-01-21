@@ -216,14 +216,8 @@ fi # end of skip all check
 
 echo "Don't forget to change the theme files to limit comment, RSS, meta, and login links, and search fields."
 
-#echo -n "Run wget now? [y/n]: "
-read rwget
-if [ "y" == $rwget ]; then
-    wget --mirror --cut-dirs=$home_cdirs -P $home_static-static -nH -np -p -k -E $home_url
-else
-    echo "Next run wget --mirror --cut-dirs=$home_cdirs -P $home_static-static -nH -np -p -k -E $home_url"
-fi
-echo
+wget --mirror --cut-dirs=$home_cdirs -P $home_static-static -nH -np -p -k -E $home_url
+
 
 
 if [[ -z "${SKIPALL-}" ]]; then
